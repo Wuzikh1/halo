@@ -34,10 +34,6 @@ services:
           property: database
       - key: SPRING_SQL_INIT_PLATFORM
         value: postgresql
-    disk:
-      name: halo-data
-      mountPath: /root/.halo2
-      sizeGB: 1
 
 databases:
   - name: halo-db
