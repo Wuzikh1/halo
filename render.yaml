@@ -8,11 +8,9 @@ services:
       - key: TZ
         value: Asia/Shanghai
       - key: HALO_EXTERNAL_URL
-        value: https://halo.onrender.com # 部署后改成你的实际域名
+        value: https://halo.onrender.com # 部署后改成你的域名
       - key: SPRING_R2DBC_URL
-        fromDatabase:
-          name: halo-db
-          property: connectionString
+        value: r2dbc:postgresql://${HALO_DB_HOST}:${HALO_DB_PORT}/${HALO_DB_NAME}
       - key: SPRING_R2DBC_USERNAME
         fromDatabase:
           name: halo-db
@@ -21,8 +19,24 @@ services:
         fromDatabase:
           name: halo-db
           property: password
+      - key: HALO_DB_HOST
+        fromDatabase:
+          name: halo-db
+          property: host
+      - key: HALO_DB_PORT
+        fromDatabase:
+          name: halo-db
+          property: port
+      - key: HALO_DB_NAME
+        fromDatabase:
+          name: halo-db
+          property: database
       - key: SPRING_SQL_INIT_PLATFORM
         value: postgresql
+    disk:
+      name: halo-data
+      mountPath: /root/.halo2
+      sizeGB: 1
 
 databases:
   - name: halo-db
