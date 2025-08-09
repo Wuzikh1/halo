@@ -2,7 +2,7 @@ services:
   - type: web
     name: halo
     env: docker
-    dockerImage: halohub/halo:2.14
+    image: halohub/halo:2.14
     plan: free
     envVars:
       - key: TZ
