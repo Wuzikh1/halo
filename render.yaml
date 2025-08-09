@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: halo
+    env: docker
+    dockerImage: halohub/halo:2.14
+    plan: free
+    envVars:
+      - key: TZ
+        value: Asia/Shanghai
+      - key: HALO_EXTERNAL_URL
+        value: https://halo.onrender.com # 部署后改成你的实际域名
+      - key: SPRING_R2DBC_URL
+        fromDatabase:
+          name: halo-db
+          property: connectionString
+      - key: SPRING_R2DBC_USERNAME
+        fromDatabase:
+          name: halo-db
+          property: user
+      - key: SPRING_R2DBC_PASSWORD
+        fromDatabase:
+          name: halo-db
+          property: password
+      - key: SPRING_SQL_INIT_PLATFORM
+        value: postgresql
+
+databases:
+  - name: halo-db
+    plan: free
+    databaseName: halo
+    user: halo
